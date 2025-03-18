@@ -1,6 +1,6 @@
 const pool = require("../config/database");
 
-const getIngressos = async () => {
+const getIngresso = async () => {
     const result = await pool.query("SELECT * FROM ingressos");
     return result.rows;
 };
@@ -12,7 +12,7 @@ const getIngressoById = async (id) => {
 
 const createIngresso = async (evento, local, data_evento, categoria, preco, quantidade_disponivel) => {
     const result = await pool.query(
-        "INSERT INTO ingressos (evento, local, data_evento, categoria, preco, quantidade_disponivel) VALUES ($1, $2) RETURNING *",
+        "INSERT INTO ingressos (evento, local, data_evento, categoria, preco, quantidade_disponivel) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
         [evento, local, data_evento, categoria, preco, quantidade_disponivel]
     );
     return result.rows[0];
@@ -36,4 +36,4 @@ const deleteIngresso = async (id) => {
     return { message: "Ingresso deletado com sucesso." };
 };
 
-module.exports = { getIngressos, getIngressoById, createIngresso, updateIngresso, deleteIngresso };
+module.exports = { getIngresso, getIngressoById, createIngresso, updateIngresso, deleteIngresso };
