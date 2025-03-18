@@ -38,11 +38,11 @@ const createIngresso = async (req, res) => {
 const updateIngresso = async (req, res) => {
     try {
         const { evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
-        const updateIngresso = await ingressoModel.updateIngresso(req.params.id, evento, local, data_evento, categoria, preco, quantidade_disponivel);
-        if (!updateIngresso) {
+        const updatedIngresso = await ingressoModel.updateIngresso(req.params.id, evento, local, data_evento, categoria, preco, quantidade_disponivel);
+        if (!updatedIngresso) {
             return res.status(404).json({ message: "Ingresso não encontrado." });
         }
-        res.json(updateIngresso);
+        res.json(updatedIngresso);
     } catch (error) {
         res.status(500).json({ message: "Erro ao atualizar ingresso." });
     }
