@@ -1,4 +1,4 @@
-const ingressoModel = require("../models/ingressoModel.js");
+const ingressoModel = require("../models/ingressoModel");
 
 const getAllIngressos = async (req, res) => {
     try {
