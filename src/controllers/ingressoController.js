@@ -3,7 +3,6 @@ const ingressoModel = require("../models/ingressoModel");
 const getAllIngressos = async (req, res) => {
     try {
         const ingressos = await ingressoModel.getIngresso();
-        console.log(ingressos)
         res.json(ingressos);
     } catch (error) {
         res.status(404).json({ message: "Erro ao buscar ingressos." });
@@ -40,7 +39,7 @@ const updateIngresso = async (req, res) => {
     try {
         const { evento, local, data_evento, categoria, preco, quantidade_disponivel } = req.body;
         const updatedIngresso = await ingressoModel.updateIngresso(req.params.id, evento, local, data_evento, categoria, preco, quantidade_disponivel);
-        if (!updatedIngresso) {
+        if (!updatedIngresso) { 
             return res.status(404).json({ message: "Ingresso não encontrado." });
         }
         res.json(updatedIngresso);
