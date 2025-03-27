@@ -3,7 +3,7 @@ const ingressoModel = require("../models/ingressoModel");
 const getAllIngressos = async (req, res) => {
     try {
         const ingressos = await ingressoModel.getIngresso();
-        res.json(ingressos);
+        res.status(200).json(ingressos);
     } catch (error) {
         res.status(404).json({ message: "Erro ao buscar ingressos." });
     }
