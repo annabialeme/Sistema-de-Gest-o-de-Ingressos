@@ -9,7 +9,7 @@ const getAllIngressos = async (req, res) => {
     }
 };
 
-const getIngresso = async (req, res) => {
+const getIngressoById = async (req, res) => {
     try {
         const ingresso = await ingressoModel.getIngressoById(req.params.id);
         if (!ingresso) {
@@ -57,5 +57,32 @@ const deleteIngresso = async (req, res) => {
     }
 };
 
-module.exports = { getAllIngressos, getIngresso, createIngresso, updateIngresso, deleteIngresso };
+const venderIngressos = async (req, res) => {
+    try {
+        const ingresso = await ingressoModel.getIngressoById(req.params.id);
+        if(!ingresso) {
+            return res.status(404).json({message: "Ingresso não encontrado"})
+        }
+        if (ingresso.quantidade_disponivel === 0) {
+            return res.status(400).json({message: "Ingresso não disponível"})
+        }
+        ingresso.quantidade_disponivel =1;
+        const updatedIngresso = await ingressoModel.updateIngresso(
+
+            req.params.id,
+            ingresso.evento,
+            ingresso.local,
+            ingresso.data_evento,
+            ingresso.categoria,
+            ingresso.preco,
+            ingresso.quantidade_disponivel,
+            
+        );
+        res.status(200).json({message: "Ingresso vendido com sucesso!", ingresso: updatedIngresso})
+    } catch (error) {
+        res.status(500).json({message: "Erro ao vender ingressos"})
+    }
+}
+
+module.exports = { getAllIngressos, getIngressoById, createIngresso, updateIngresso, deleteIngresso, venderIngressos };
 

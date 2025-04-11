@@ -7,7 +7,7 @@ const exportIngressoCSV = async (req, res) => {
     try {
         const models =  await ingressoModel.getAllIngressos();
 
-        res.setHeader("Content-Disposition", "attachment; filename=models.csv");
+        res.setHeader("Content-Disposition", "attachment; filename=ingressos.csv");
         res.setHeader("Content-Type", "text-csv");
 
         const csvStream = format({ headers: true});
@@ -36,7 +36,7 @@ const exportIngressoPDF = async (req, res) => {
         const models = await ingressoModel.getAllIngressos();
 
         res.setHeader("Content-Type", "application/pdf");
-        res.setHeader("Content-Disposition", "inline; filename=wizards.pdf")
+        res.setHeader("Content-Disposition", "inline; filename=ingressos.pdf")
 
         const doc = new PDFDocument();
         doc.pipe(res);
