@@ -63,10 +63,13 @@ const venderIngressos = async (req, res) => {
         if(!ingresso) {
             return res.status(404).json({message: "Ingresso não encontrado"})
         }
+        if(!req.paramss.id) {
+            return res.status(400).json({message: "ID do ingresso não fornecido"})
+        }
         if (ingresso.quantidade_disponivel === 0) {
             return res.status(400).json({message: "Ingresso não disponível"})
         }
-        ingresso.quantidade_disponivel =1;
+        ingresso.quantidade_disponivel -= 1
         const updatedIngresso = await ingressoModel.updateIngresso(
 
             req.params.id,
@@ -78,8 +81,11 @@ const venderIngressos = async (req, res) => {
             ingresso.quantidade_disponivel,
             
         );
-        res.status(200).json({message: "Ingresso vendido com sucesso!", ingresso: updatedIngresso})
+        res.status(200).json({
+            message: "Ingresso vendido com sucesso!", 
+            ingresso: updatedIngresso})
     } catch (error) {
+        console.error("Erro ao vender ingressos:", error)
         res.status(500).json({message: "Erro ao vender ingressos"})
     }
 }

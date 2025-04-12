@@ -36,4 +36,11 @@ const deleteIngresso = async (id) => {
     return { message: "Ingresso deletado com sucesso." };
 };
 
-module.exports = { getIngresso, getIngressoById, createIngresso, updateIngresso, deleteIngresso };
+const venderIngressos = async (id, quantidade_disponivel) => {
+    const result = await pool.query(
+        "UPDATE ingressos SET quantidade_disponivel = $1 WHERE id = $2 RETURNING *" , [quantidade_disponivel, id]
+    );
+    return result.rows[0];
+} 
+
+module.exports = { getIngresso, getIngressoById, createIngresso, updateIngresso, deleteIngresso, venderIngressos };

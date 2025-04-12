@@ -5,15 +5,15 @@ const ingressoModel = require("../models/ingressoModel");
 
 const exportIngressoCSV = async (req, res) => {
     try {
-        const models =  await ingressoModel.getAllIngressos();
+        const ingressos =  await ingressoModel.getAllIngressos();
 
-        res.setHeader("Content-Disposition", "attachment; filename=ingressos.csv");
+        res.setHeader("Content-Disposition", "attachment; filename=ingresso.csv");
         res.setHeader("Content-Type", "text-csv");
 
         const csvStream = format({ headers: true});
         csvStream.pipe(res);
 
-        models.forEach((model) => {
+        ingressos.forEach((ingresso) => {
             csvStream.write({
                 Id: ingresso.id,
                 evento: ingresso.evento,
@@ -33,7 +33,7 @@ const exportIngressoCSV = async (req, res) => {
 
 const exportIngressoPDF = async (req, res) => {
     try {
-        const models = await ingressoModel.getAllIngressos();
+        const ingressos = await ingressoModel.getAllIngressos();
 
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader("Content-Disposition", "inline; filename=ingressos.pdf")
@@ -50,9 +50,9 @@ const exportIngressoPDF = async (req, res) => {
         doc.moveDown(0.5);
 
         
-        models.forEach((model) => {
+        ingressos.forEach((ingresso) => {
             doc.text(
-                `${ingresso.id} | ${ingresso.evento} | ${ingresso.local} | ${ingresso.data_evento} | ${ingresso.categoria} | ${ingresso.preco} | ${ingresso.quantidade_disponivel}}`
+                `${ingresso.id} | ${ingresso.evento} | ${ingresso.local} | ${ingresso.data_evento} | ${ingresso.categoria} | ${ingresso.preco} | ${ingresso.quantidade_disponivel}`
             );
         });
 
