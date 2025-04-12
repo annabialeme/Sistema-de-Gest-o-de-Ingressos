@@ -1,6 +1,6 @@
-🎟 <h1>Sistema de Gestão de Ingressos<h1>
+ <h1> 🎟 Sistema de Gestão de Ingressos<h1>
 
-O sistema deve permitir o cadastro, consulta, atualização e remoção de ingressos disponíveis para diferentes eventos, além de conter duas regras de negócio para garantir um controle eficiente das vendas e preços.
+<p>O sistema deve permitir o cadastro, consulta, atualização e remoção de ingressos disponíveis para diferentes eventos, além de conter duas regras de negócio para garantir um controle eficiente das vendas e preços.<p>
 
 <h4>Rodando a API<h4>
 
