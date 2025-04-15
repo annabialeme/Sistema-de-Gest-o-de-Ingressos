@@ -5,7 +5,7 @@ const ingressoModel = require("../models/ingressoModel");
 
 const exportIngressoCSV = async (req, res) => {
     try {
-        const ingressos =  await ingressoModel.getAllIngressos();
+        const ingressos =  await ingressoModel.getIngresso();
 
         res.setHeader("Content-Disposition", "attachment; filename=ingresso.csv");
         res.setHeader("Content-Type", "text-csv");
@@ -33,7 +33,7 @@ const exportIngressoCSV = async (req, res) => {
 
 const exportIngressoPDF = async (req, res) => {
     try {
-        const ingressos = await ingressoModel.getAllIngressos();
+        const ingressos = await ingressoModel.getIngresso();
 
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader("Content-Disposition", "inline; filename=ingressos.pdf")
@@ -58,6 +58,7 @@ const exportIngressoPDF = async (req, res) => {
 
         doc.end(); 
     } catch (error) {
+        console.error('Erro ao gerar o PDF:', error);
         res.status(500).json({ message: "Erro ao gerar o pdf"}); 
     }
 };
